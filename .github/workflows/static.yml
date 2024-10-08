@@ -31,13 +31,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16" # or the version you're using
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: $GITHUB_SHA
+          restore-keys: |
+            $GITHUB_SHA
+      - name: Run Vite
+        run: |
+          vite build --config vite.config.js
+      - name: Verify Permissions-Policy header
+        run: |
+          curl -s -I https://jonathanpabon-dev.github.io/ | grep Permissions-Policy
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: '.'
+          path: "."
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
