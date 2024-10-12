@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 const App = () => {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center bg-slate-200 text-slate-800 dark:bg-slate-900 dark:text-slate-200">
-      <BrowserRouter basename="/bills">
+      <BrowserRouter basename="/Bills-bck">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
