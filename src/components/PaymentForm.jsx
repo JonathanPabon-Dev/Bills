@@ -24,7 +24,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPayment = payment.paymentDate
-      ? { ...payment, totalPaid: payment.amount }
+      ? { ...payment, totalPaid: payment.totalPaid || payment.amount }
       : payment;
     onSubmit(newPayment);
   };
@@ -75,6 +75,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
           <input
             type="number"
             name="amount"
+            step={0.01}
             min={0}
             value={payment.amount || ""}
             onChange={handleChange}
@@ -102,6 +103,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             type="number"
             name="totalPaid"
             min={0}
+            step={0.01}
             value={payment.totalPaid || ""}
             onChange={handleChange}
             className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
