@@ -4,8 +4,8 @@ import { billNameList } from "../utils/utils";
 
 const PaymentList = ({ payments, onEdit, onDelete }) => {
   return (
-    <>
-      <table className="w-full">
+    <div className="overflow-x-auto">
+      <table className="text-nowrap">
         <thead>
           <tr>
             <th className="px-4 py-2 text-lg font-bold">Bill Name</th>
@@ -86,7 +86,7 @@ const PaymentList = ({ payments, onEdit, onDelete }) => {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 

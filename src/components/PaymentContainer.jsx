@@ -79,7 +79,7 @@ const PaymentContainer = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mx-auto my-10 max-w-[90%]">
       <h2 className="mb-10 text-center text-5xl font-bold uppercase">
         {toggleForm ? " Payment Form" : "Payment Table"}
       </h2>
