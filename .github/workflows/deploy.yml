@@ -2,9 +2,12 @@
 name: Deploy static content to Pages
 
 on:
+  schedule:
+    - cron: "0 0 * * 1,4" # Runs at 9:00 AM every Monday and Thursday
+
   # Runs on pushes targeting the default branch
   push:
-    branches: ['main']
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -17,7 +20,7 @@ permissions:
 
 # Allow one concurrent deployment
 concurrency:
-  group: 'pages'
+  group: "pages"
   cancel-in-progress: true
 
 env:
@@ -38,7 +41,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -49,7 +52,19 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
-          path: './dist'
+          path: "./dist"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  keep-supabase-active:
+    runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_KEY: ${{ secrets.VITE_SUPABASE_KEY }}
+    steps:
+      - name: Make a request to Supabase
+        run: |
+          curl -X GET "$VITE_SUPABASE_URL/rest/v1/bills" \
+          -H "Authorization: Bearer $VITE_SUPABASE_KEY" \
+          -H "Content-Type: application/json"
