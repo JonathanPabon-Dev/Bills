@@ -1,15 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import PaymentService from "../api/PaymentService";
 import PaymentForm from "./PaymentForm";
 import PaymentList from "./PaymentList";
-import { CreateIcon } from "../assets/Icons";
+import { CreateIcon, FilterIcon, ResetFilterIcon } from "../assets/Icons";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import FilterModal from "./FilterModal";
+import { defaultDate } from "../utils/utils";
 
 const PaymentContainer = () => {
   const [paymentData, setPaymentData] = useState(null);
   const [storedPayments, setStoredPayments] = useState([]);
   const [toggleForm, setToggleForm] = useState(false);
+  const [toggleFilters, setToggleFilters] = useState(false);
+  const [filters, setFilters] = useState({});
+  const [hasFilters, setHasFilters] = useState(false);
+
+  const initialFilters = {
+    deadlineSince: defaultDate(),
+    deadlineUntil: "",
+    billName: "",
+  };
 
   const handleSubmit = (payment) => {
     console.log(paymentData);
@@ -68,15 +79,28 @@ const PaymentContainer = () => {
     });
   };
 
-  const loadData = () => {
-    PaymentService.getPayments().then((response) => {
+  const handleClearFilters = () => {
+    setFilters(initialFilters);
+    loadData();
+  };
+
+  const loadData = useCallback(() => {
+    filters.deadlineSince = filters.deadlineSince || defaultDate();
+    PaymentService.getPayments(filters).then((response) => {
       setStoredPayments(response.data);
     });
-  };
+  }, [filters]);
 
   useEffect(() => {
     loadData();
-  }, []);
+    setHasFilters(
+      (filters.billName !== undefined && filters.billName !== "") ||
+        (filters.deadlineSince !== undefined &&
+          filters.deadlineSince !== "" &&
+          filters.deadlineSince !== defaultDate()) ||
+        (filters.deadlineUntil !== undefined && filters.deadlineUntil !== ""),
+    );
+  }, [loadData, filters]);
 
   return (
     <div className="mx-auto my-10 max-w-[90%]">
@@ -94,13 +118,33 @@ const PaymentContainer = () => {
       ) : (
         <>
           <div className="my-5 flex flex-row-reverse items-center justify-between">
-            <button
-              className="size-10 rounded bg-green-600 p-2 text-right font-bold text-white hover:bg-green-700"
-              onClick={() => setToggleForm(!toggleForm)}
-              title="Add New"
-            >
-              <CreateIcon stroke={"#eee"} />
-            </button>
+            <div className="flex gap-2">
+              <button
+                className="size-10 rounded bg-green-600 p-2 text-right font-bold text-white hover:bg-green-700"
+                onClick={() => setToggleForm(!toggleForm)}
+                title="Add New"
+              >
+                <CreateIcon stroke={"#eee"} />
+              </button>
+              <button
+                className="size-10 rounded bg-slate-600 p-2 text-right font-bold text-white hover:bg-slate-700"
+                onClick={() => setToggleFilters(true)}
+                title="Filters"
+              >
+                <FilterIcon stroke={"#eee"} />
+              </button>
+              <button
+                className={
+                  hasFilters
+                    ? "size-10 rounded bg-slate-600 p-2 text-right font-bold text-white hover:bg-slate-700"
+                    : "hidden"
+                }
+                onClick={() => handleClearFilters()}
+                title="Clear Filters"
+              >
+                <ResetFilterIcon stroke={"#eee"} />
+              </button>
+            </div>
             {storedPayments.length === 0 && (
               <p>No data found. Try add a new register.</p>
             )}
@@ -114,6 +158,12 @@ const PaymentContainer = () => {
           )}
         </>
       )}
+      <FilterModal
+        isOpen={toggleFilters}
+        onClose={() => setToggleFilters(false)}
+        filters={filters}
+        setFilters={setFilters}
+      />
     </div>
   );
 };

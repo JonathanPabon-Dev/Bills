@@ -1,10 +1,28 @@
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { EditIcon, DeleteIcon } from "../assets/Icons";
 import { billNameList } from "../utils/utils";
 
 const PaymentList = ({ payments, onEdit, onDelete }) => {
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalPaid, setTotalPaid] = useState(0);
+
+  useEffect(() => {
+    const accAmount = payments.reduce(
+      (acc, payment) => acc + payment.amount,
+      0,
+    );
+    const accPaid = payments.reduce(
+      (acc, payment) => acc + payment.totalPaid,
+      0,
+    );
+
+    setTotalAmount(accAmount);
+    setTotalPaid(accPaid);
+  }, [payments]);
+
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto rounded-lg border border-slate-800">
       <table className="text-nowrap">
         <thead>
           <tr>
@@ -85,6 +103,27 @@ const PaymentList = ({ payments, onEdit, onDelete }) => {
             </tr>
           ))}
         </tbody>
+        <tfoot>
+          <tr>
+            <td className="px-4 py-2 font-bold">Total</td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2">
+              <div className="flex justify-between">
+                <span>$</span>
+                <span>{totalAmount.toLocaleString("en-us")}</span>
+              </div>
+            </td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2">
+              <div className="flex justify-between">
+                <span>$</span>
+                <span>{totalPaid.toLocaleString("en-us")}</span>
+              </div>
+            </td>
+            <td className="px-4 py-2"></td>
+            <td className="px-4 py-2"></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

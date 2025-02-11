@@ -1,15 +1,27 @@
 import { supabase, validateConnection } from "../../supabase";
 
 const PaymentService = {
-  getPayments: async () => {
+  getPayments: async (filters = {}) => {
     try {
       if (!validateConnection) {
-        throw new Error("Error de conexión.");
+        throw new Error("Connection error!");
       }
-      const response = await supabase
-        .from("bills")
-        .select()
-        .order("paymentDeadline", { ascending: false });
+
+      let query = supabase.from("bills").select();
+
+      if (filters.billName !== undefined && filters.billName !== "") {
+        query = query.eq("billName", filters.billName);
+      }
+      if (filters.deadlineSince !== undefined && filters.deadlineSince !== "") {
+        query = query.gte("paymentDeadline", filters.deadlineSince);
+      }
+      if (filters.deadlineUntil !== undefined && filters.deadlineUntil !== "") {
+        query = query.lte("paymentDeadline", filters.deadlineUntil);
+      }
+
+      query = query.order("paymentDeadline", { ascending: false });
+
+      const response = await query;
       return response;
     } catch (error) {
       console.error(error);
@@ -19,7 +31,7 @@ const PaymentService = {
   createPayment: async (payment) => {
     try {
       if (!validateConnection) {
-        throw new Error("Error de conexión.");
+        throw new Error("Connection error!");
       }
       const response = await supabase.from("bills").insert({ ...payment });
       return response;
@@ -31,7 +43,7 @@ const PaymentService = {
   updatePayment: async (payment) => {
     try {
       if (!validateConnection) {
-        throw new Error("Error de conexión.");
+        throw new Error("Connection error!");
       }
       const response = await supabase
         .from("bills")
@@ -46,7 +58,7 @@ const PaymentService = {
   deletePayment: async (paymentId) => {
     try {
       if (!validateConnection) {
-        throw new Error("Error de conexión.");
+        throw new Error("Connection error!");
       }
       const response = await supabase
         .from("bills")

@@ -18,3 +18,10 @@ export const methodsList = [
   { value: "Transferencia", name: "Transferencia" },
   { value: "Crédito", name: "Tarjeta de Crédito" },
 ];
+
+export const defaultDate = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  return `${year}-${month}-${"01"}`;
+};
