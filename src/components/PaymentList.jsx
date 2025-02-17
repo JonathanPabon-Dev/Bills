@@ -12,6 +12,7 @@ const PaymentList = ({ payments, onEdit, onDelete }) => {
       (acc, payment) => acc + payment.amount,
       0,
     );
+
     const accPaid = payments.reduce(
       (acc, payment) => acc + payment.totalPaid,
       0,

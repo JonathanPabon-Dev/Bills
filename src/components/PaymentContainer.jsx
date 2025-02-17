@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import PropTypes from "prop-types";
 import PaymentService from "../api/PaymentService";
 import PaymentForm from "./PaymentForm";
 import PaymentList from "./PaymentList";
@@ -6,21 +7,15 @@ import { CreateIcon, FilterIcon, ResetFilterIcon } from "../assets/Icons";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import FilterModal from "./FilterModal";
-import { defaultDate } from "../utils/utils";
+import { defaultDate, initialFilters } from "../utils/utils";
 
 const PaymentContainer = () => {
   const [paymentData, setPaymentData] = useState(null);
   const [storedPayments, setStoredPayments] = useState([]);
   const [toggleForm, setToggleForm] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState(initialFilters);
   const [hasFilters, setHasFilters] = useState(false);
-
-  const initialFilters = {
-    deadlineSince: defaultDate(),
-    deadlineUntil: "",
-    billName: "",
-  };
 
   const handleSubmit = (payment) => {
     console.log(paymentData);
@@ -81,11 +76,9 @@ const PaymentContainer = () => {
 
   const handleClearFilters = () => {
     setFilters(initialFilters);
-    loadData();
   };
 
   const loadData = useCallback(() => {
-    filters.deadlineSince = filters.deadlineSince || defaultDate();
     PaymentService.getPayments(filters).then((response) => {
       setStoredPayments(response.data);
     });
@@ -93,6 +86,9 @@ const PaymentContainer = () => {
 
   useEffect(() => {
     loadData();
+  }, [loadData]);
+
+  useEffect(() => {
     setHasFilters(
       (filters.billName !== undefined && filters.billName !== "") ||
         (filters.deadlineSince !== undefined &&
@@ -100,7 +96,7 @@ const PaymentContainer = () => {
           filters.deadlineSince !== defaultDate()) ||
         (filters.deadlineUntil !== undefined && filters.deadlineUntil !== ""),
     );
-  }, [loadData, filters]);
+  }, [filters]);
 
   return (
     <div className="mx-auto my-10 max-w-[90%]">
@@ -166,6 +162,10 @@ const PaymentContainer = () => {
       />
     </div>
   );
+};
+
+PaymentContainer.propTypes = {
+  initialFilters: PropTypes.object,
 };
 
 export default PaymentContainer;

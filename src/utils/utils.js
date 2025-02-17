@@ -11,6 +11,7 @@ export const billNameList = [
   { value: "Admon", name: "Administración" },
   { value: "Plataformas", name: "Netflix - Disney+" },
   { value: "Addi", name: "Addi" },
+  { value: "Cine", name: "Cine" },
 ];
 
 export const methodsList = [
@@ -24,4 +25,10 @@ export const defaultDate = () => {
   const year = now.getFullYear();
   const month = String(now.getMonth() + 1).padStart(2, "0");
   return `${year}-${month}-${"01"}`;
+};
+
+export const initialFilters = {
+  deadlineSince: defaultDate(),
+  deadlineUntil: "",
+  billName: "",
 };
