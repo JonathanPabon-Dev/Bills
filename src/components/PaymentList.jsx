@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { EditIcon, DeleteIcon } from "../assets/Icons";
 import { billNameList } from "../utils/utils";
+import TooltipMessagge from "./TooltipMessagge";
 
 const PaymentList = ({ payments, onEdit, onDelete }) => {
   const [totalAmount, setTotalAmount] = useState(0);
@@ -43,11 +44,16 @@ const PaymentList = ({ payments, onEdit, onDelete }) => {
               className={index % 2 === 0 ? "bg-slate-700" : "bg-slate-800"}
             >
               <td className="px-4 py-2">
-                {
-                  billNameList.find(
-                    (registro) => registro.value === payment.billName,
-                  ).name
-                }
+                <div className="flex justify-between">
+                  {
+                    billNameList.find(
+                      (registro) => registro.value === payment.billName,
+                    ).name
+                  }
+                  {payment.billName === "Otro" && (
+                    <TooltipMessagge messagge={payment.description} />
+                  )}
+                </div>
               </td>
               <td className="px-4 py-2 text-center">
                 {payment.paymentDeadline}

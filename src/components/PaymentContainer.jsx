@@ -18,7 +18,6 @@ const PaymentContainer = () => {
   const [hasFilters, setHasFilters] = useState(false);
 
   const handleSubmit = (payment) => {
-    console.log(paymentData);
     if (paymentData) {
       PaymentService.updatePayment(payment).then((response) => {
         if (response.status === 204) {

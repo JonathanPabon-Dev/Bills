@@ -10,6 +10,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
     paymentDate: null,
     totalPaid: null,
     paymentMethod: null,
+    description: "",
   };
 
   const [payment, setPayment] = useState(initialData);
@@ -59,6 +60,21 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             ))}
           </select>
         </label>
+
+        {payment.billName === "Otro" && (
+          <label>
+            Description
+            <input
+              type="text"
+              name="description"
+              value={payment.description}
+              onChange={handleChange}
+              className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
+              required={payment.billName === "Otro"}
+            />
+          </label>
+        )}
+
         <label>
           Payment Deadline
           <input
@@ -70,6 +86,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             required
           />
         </label>
+
         <label>
           Amount
           <input
@@ -83,6 +100,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             required
           />
         </label>
+
         <label>
           Payment Date
           <input
@@ -97,6 +115,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             className="mt-1 w-full rounded-md bg-slate-600 p-2"
           />
         </label>
+
         <label>
           Total Paid
           <input
@@ -109,6 +128,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
           />
         </label>
+
         <label>
           Payment Method
           <select
@@ -125,6 +145,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             ))}
           </select>
         </label>
+
         <div className="mt-3 flex justify-end gap-3">
           <button
             type="button"

@@ -12,6 +12,7 @@ export const billNameList = [
   { value: "Plataformas", name: "Netflix - Disney+" },
   { value: "Addi", name: "Addi" },
   { value: "Cine", name: "Cine" },
+  { value: "Otro", name: "Otro" },
 ];
 
 export const methodsList = [
