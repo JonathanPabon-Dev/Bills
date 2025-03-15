@@ -1,24 +1,26 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
-    console.log("Login data: ", {email, password});
+    console.log("Login data: ", { email, password });
   };
 
   return (
-    <div className="bg-slate-50 shadow-md rounded-lg p-8 dark:bg-slate-800">
-      <h1 className="w-full text-center text-4xl font-bold uppercase mb-8">Sign In</h1>
+    <div className="rounded-lg bg-slate-50 p-8 shadow-md dark:bg-slate-800">
+      <h1 className="mb-8 w-full text-center text-4xl font-bold uppercase">
+        Sign In
+      </h1>
       <form onSubmit={handleSubmitLogin}>
         <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="email">
+          <label className="mb-2 block text-sm font-bold" htmlFor="email">
             Email
           </label>
           <input
-            className="shadow border rounded w-full py-2 px-3 text-slate-700 focus:outline-none focus:shadow-outline dark:bg-slate-100"
+            className="focus:shadow-outline w-full rounded border px-3 py-2 text-slate-700 shadow focus:outline-none dark:bg-slate-100"
             id="email"
             type="email"
             required
@@ -26,11 +28,11 @@ const Login = () => {
           />
         </div>
         <div className="mb-12">
-          <label className="block text-sm font-bold mb-2" htmlFor="password">
+          <label className="mb-2 block text-sm font-bold" htmlFor="password">
             Password
           </label>
           <input
-            className="shadow border rounded w-full py-2 px-3 text-slate-700 focus:outline-none focus:shadow-outline dark:bg-slate-100"
+            className="focus:shadow-outline w-full rounded border px-3 py-2 text-slate-700 shadow focus:outline-none dark:bg-slate-100"
             id="password"
             type="password"
             required
@@ -38,7 +40,7 @@ const Login = () => {
           />
         </div>
         <button
-          className="bg-indigo-500 hover:bg-indigo-700 text-slate-50 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="focus:shadow-outline rounded bg-indigo-500 px-4 py-2 font-bold text-slate-50 hover:bg-indigo-700 focus:outline-none"
           type="submit"
         >
           Login
