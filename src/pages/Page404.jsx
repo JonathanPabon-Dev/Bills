@@ -2,7 +2,7 @@ import Img404 from "../assets/Img404";
 
 const Page404 = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-10">
+    <div className="m-auto flex size-full flex-col items-center gap-10">
       <h1 className="text-center text-5xl font-bold uppercase">
         Page not found
       </h1>

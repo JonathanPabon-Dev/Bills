@@ -1,6 +1,7 @@
 {
   "name": "bills",
   "homepage": "https://jonathanpabon-dev.github.io/Bills",
+  "author": "JPDev",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,6 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@supabase/supabase-js": "^2.45.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

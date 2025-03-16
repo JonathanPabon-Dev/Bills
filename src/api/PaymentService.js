@@ -1,4 +1,4 @@
-import { supabase, validateConnection } from "../../supabase";
+import { supabase, validateConnection } from "../supabase/supabaseClient";
 
 const PaymentService = {
   getPayments: async (filters = {}) => {

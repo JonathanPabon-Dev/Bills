@@ -14,7 +14,7 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90">
-      <div className="rounded bg-slate-800 p-5 shadow-lg">
+      <div className="rounded bg-slate-900 p-5 shadow-lg">
         <h2 className="mb-4 text-xl font-bold">Filters</h2>
         <div className="mb-4">
           <div className="mb-4">
@@ -24,7 +24,7 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
                 name="billName"
                 value={filters.billName}
                 onChange={handleFilterChange}
-                className="w-full rounded-md bg-slate-500 p-2"
+                className="w-full rounded-md bg-slate-700 p-2"
               >
                 <option value="">Seleccione una opción</option>
                 {billNameList.map((option) => (
@@ -43,7 +43,7 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
                 name="deadlineSince"
                 value={filters.deadlineSince || ""}
                 onChange={handleFilterChange}
-                className="w-full rounded-md bg-slate-500 p-2"
+                className="w-full rounded-md bg-slate-700 p-2"
               />
             </label>
           </div>
@@ -55,14 +55,14 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
                 name="deadlineUntil"
                 value={filters.deadlineUntil || ""}
                 onChange={handleFilterChange}
-                className="w-full rounded-md bg-slate-500 p-2"
+                className="w-full rounded-md bg-slate-700 p-2"
               />
             </label>
           </div>
         </div>
         <div className="flex justify-end gap-2">
           <button
-            className="rounded bg-gray-500 px-4 py-2 hover:bg-gray-600"
+            className="rounded bg-gray-600 px-4 py-2 hover:bg-gray-700"
             onClick={onClose}
           >
             Close

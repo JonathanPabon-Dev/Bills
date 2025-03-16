@@ -98,7 +98,7 @@ const PaymentContainer = () => {
   }, [filters]);
 
   return (
-    <div className="mx-auto my-10 max-w-[90%]">
+    <div className="mx-auto my-10 max-w-fit">
       <h2 className="mb-10 text-center text-5xl font-bold uppercase">
         {toggleForm ? " Payment Form" : "Payment Table"}
       </h2>
@@ -112,7 +112,7 @@ const PaymentContainer = () => {
         </>
       ) : (
         <>
-          <div className="my-5 flex flex-row-reverse items-center justify-between">
+          <div className="my-5 flex flex-row-reverse items-center justify-between gap-5">
             <div className="flex gap-2">
               <button
                 className="size-10 rounded bg-green-600 p-2 text-right font-bold text-white hover:bg-green-700"
@@ -141,7 +141,9 @@ const PaymentContainer = () => {
               </button>
             </div>
             {storedPayments.length === 0 && (
-              <p>No data found. Try add a new register.</p>
+              <p className="text-lg font-bold">
+                No data found. Try add a new register.
+              </p>
             )}
           </div>
           {storedPayments.length > 0 && (
