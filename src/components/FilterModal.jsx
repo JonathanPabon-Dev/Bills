@@ -26,7 +26,7 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
                 onChange={handleFilterChange}
                 className="w-full rounded-md bg-slate-700 p-2"
               >
-                <option value="">Seleccione una opción</option>
+                <option value="">Select an option</option>
                 {billNameList.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.name}

@@ -1,13 +1,11 @@
-import { useState } from "react";
 import Header from "../components/Header";
 import PaymentContainer from "../components/PaymentContainer";
 
 const Dashboard = () => {
-  const [paymentsVisible, setPaymentsVisible] = useState(false);
   return (
     <div className="flex size-full flex-col">
       <Header />
-      <main className="container mx-auto">
+      <main className="container mx-auto px-4">
         <PaymentContainer />
       </main>
     </div>

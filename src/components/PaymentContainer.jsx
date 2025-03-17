@@ -21,19 +21,19 @@ const PaymentContainer = () => {
     if (paymentData) {
       PaymentService.updatePayment(payment).then((response) => {
         if (response.status === 204) {
-          toast.success("Registro actualizado correctamente");
+          toast.success("Record updated successfully");
           loadData();
         } else {
-          toast.error("Error al actualizar el registro");
+          toast.error("Error updatting record");
         }
       });
     } else {
       PaymentService.createPayment(payment).then((response) => {
         if (response.status === 201) {
-          toast.success("Registro creado correctamente");
+          toast.success("Record created successfully");
           loadData();
         } else {
-          toast.error("Error al crear el registro");
+          toast.error("Error creatting record");
         }
       });
     }
@@ -52,21 +52,21 @@ const PaymentContainer = () => {
 
   const handleDelete = (paymentId) => {
     Swal.fire({
-      text: "¿Está seguro de que desea eliminar el registro?",
+      text: "Confirm delete record?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#009c0d",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Eliminar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
         PaymentService.deletePayment(paymentId).then((response) => {
           if (response.status === 204) {
-            toast.success("Registro eliminado correctamente");
+            toast.success("Recored deleted successfully");
             loadData();
           } else {
-            toast.error("Error al eliminar el registro");
+            toast.error("Error deleting record");
           }
         });
       }
@@ -98,7 +98,7 @@ const PaymentContainer = () => {
   }, [filters]);
 
   return (
-    <div className="mx-auto my-10 max-w-fit">
+    <div className="container mx-auto my-10 max-w-fit">
       <h2 className="mb-10 text-center text-5xl font-bold uppercase">
         {toggleForm ? " Payment Form" : "Payment Table"}
       </h2>

@@ -51,7 +51,7 @@ const SignUp = () => {
     password && confirmPassword && password === confirmPassword;
 
   return (
-    <div className="mx-auto flex min-h-screen w-[40%] min-w-60 max-w-md flex-col justify-center gap-3">
+    <div className="mx-auto flex min-h-screen w-[40%] min-w-80 max-w-md flex-col justify-center gap-3">
       <h2 className="text-center text-2xl">Sign Up</h2>
       <p className="text-center">
         Already have an account?{" "}

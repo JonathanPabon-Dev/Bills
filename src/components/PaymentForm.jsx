@@ -52,7 +52,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
             required
           >
-            <option value="">Seleccione una opción</option>
+            <option value="">Select an option</option>
             {billNameList.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.name}
@@ -137,7 +137,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             onChange={handleChange}
             className="mt-1 w-full rounded-md bg-slate-600 p-2"
           >
-            <option value="">Seleccione una opción</option>
+            <option value="">Select an option</option>
             {methodsList.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.name}

@@ -23,20 +23,21 @@ const Header = () => {
 
   return (
     <>
-      <header className="bg-slate-700 px-4 py-2 text-white">
+      <header className="flex bg-slate-700 px-4 py-2 text-white">
         <div className="container mx-auto flex items-center justify-between">
-          <div className="user-info">
-            <p className="">
-              Welcome{" "}
-              <span className="text-blue-400">{session?.user?.email}</span>
+          <div>Menu</div>
+          <div className="flex items-center gap-5">
+            <p className="font-semibold text-slate-100">
+              {session?.user?.email}
             </p>
+            <button
+              onClick={handleSignOut}
+              className="size-7 rounded border border-red-500 font-bold text-white hover:border-red-600 hover:bg-red-600"
+              title="Sign Out"
+            >
+              <FontAwesomeIcon icon={faSignOut} />
+            </button>
           </div>
-          <button
-            onClick={handleSignOut}
-            className="size-8 rounded bg-red-500 font-bold text-white hover:bg-red-600"
-          >
-            <FontAwesomeIcon icon={faSignOut} />
-          </button>
         </div>
       </header>
     </>
