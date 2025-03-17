@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Img404 from "../assets/Img404";
 
 const Page404 = () => {
@@ -11,9 +12,9 @@ const Page404 = () => {
       </div>
       <h3>
         Back to{" "}
-        <a href="/" className="text-indigo-400 hover:text-indigo-500">
+        <Link to={"/"} className="text-indigo-400 hover:text-indigo-500">
           home
-        </a>{" "}
+        </Link>{" "}
         page.
       </h3>
     </div>
