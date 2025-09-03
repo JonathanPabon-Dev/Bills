@@ -112,3 +112,83 @@ export const ResetFilterIcon = (props) => (
     />
   </svg>
 );
+
+export const ChevronLeftIcon = (props) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="size-full"
+    {...props}
+  >
+    <path
+      d="M15 18l-6-6 6-6"
+      stroke={props.stroke || "currentColor"}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ChevronRightIcon = (props) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="size-full"
+    {...props}
+  >
+    <path
+      d="M9 18l6-6-6-6"
+      stroke={props.stroke || "currentColor"}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ChevronDoubleLeftIcon = (props) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="size-full"
+    {...props}
+  >
+    <path
+      d="M18 17l-5-5 5-5M11 17l-5-5 5-5"
+      stroke={props.stroke || "currentColor"}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ChevronDoubleRightIcon = (props) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="size-full"
+    {...props}
+  >
+    <path
+      d="M6 17l5-5-5-5m7 10l5-5-5-5"
+      stroke={props.stroke || "currentColor"}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

@@ -1,14 +1,41 @@
 import { supabase, validateConnection } from "../supabase/supabaseClient";
 
 const PaymentService = {
-  getPayments: async (filters = {}) => {
+  getPayments: async (filters = {}, page = 1, pageSize = 10) => {
     try {
       if (!validateConnection) {
         throw new Error("Connection error!");
       }
 
-      let query = supabase.from("bills").select();
+      const from = (page - 1) * pageSize;
+      const to = from + pageSize - 1;
 
+      // First, get the total count for pagination
+      const countQuery = supabase
+        .from('bills')
+        .select('*', { count: 'exact', head: true });
+
+      // Apply filters to count query
+      if (filters.billName !== undefined && filters.billName !== "") {
+        countQuery.eq("billName", filters.billName);
+      }
+      if (filters.deadlineSince !== undefined && filters.deadlineSince !== "") {
+        countQuery.gte("paymentDeadline", filters.deadlineSince);
+      }
+      if (filters.deadlineUntil !== undefined && filters.deadlineUntil !== "") {
+        countQuery.lte("paymentDeadline", filters.deadlineUntil);
+      }
+
+      const { count } = await countQuery;
+
+      // Then get the paginated data
+      let query = supabase
+        .from("bills")
+        .select()
+        .order("paymentDeadline", { ascending: false })
+        .range(from, to);
+
+      // Apply filters to main query
       if (filters.billName !== undefined && filters.billName !== "") {
         query = query.eq("billName", filters.billName);
       }
@@ -19,12 +46,20 @@ const PaymentService = {
         query = query.lte("paymentDeadline", filters.deadlineUntil);
       }
 
-      query = query.order("paymentDeadline", { ascending: false });
-
-      const response = await query;
-      return response;
+      const { data, error } = await query;
+      
+      if (error) throw error;
+      
+      return {
+        data,
+        page,
+        pageSize,
+        totalItems: count || 0,
+        totalPages: Math.ceil((count || 0) / pageSize)
+      };
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching payments:', error);
+      throw error;
     }
   },
 

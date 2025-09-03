@@ -9,7 +9,7 @@ export const billNameList = [
   { value: "Arriendo", name: "Arriendo" },
   { value: "TcAlkosto", name: "Tarjeta Crédito Alkosto" },
   { value: "Admon", name: "Administración" },
-  { value: "Plataformas", name: "Netflix - Disney+" },
+  { value: "Plataformas", name: "Suscripciones" },
   { value: "Addi", name: "Addi" },
   { value: "Cine", name: "Cine" },
   { value: "Otro", name: "Otro" },

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 import PaymentService from "../api/PaymentService";
 import PaymentForm from "./PaymentForm";
@@ -12,6 +12,12 @@ import { defaultDate, initialFilters } from "../utils/utils";
 const PaymentContainer = () => {
   const [paymentData, setPaymentData] = useState(null);
   const [storedPayments, setStoredPayments] = useState([]);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    pageSize: 10,
+    totalItems: 0,
+    totalPages: 1,
+  });
   const [toggleForm, setToggleForm] = useState(false);
   const [toggleFilters, setToggleFilters] = useState(false);
   const [filters, setFilters] = useState(initialFilters);
@@ -75,17 +81,56 @@ const PaymentContainer = () => {
 
   const handleClearFilters = () => {
     setFilters(initialFilters);
+    // Reset to first page when clearing filters
+    setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
-  const loadData = useCallback(() => {
-    PaymentService.getPayments(filters).then((response) => {
-      setStoredPayments(response.data);
-    });
-  }, [filters]);
+  const loadData = useCallback(
+    (newPage = 1) => {
+      const currentPageSize = pagination.pageSize;
+      PaymentService.getPayments(filters, newPage, currentPageSize)
+        .then((response) => {
+          if (response) {
+            setStoredPayments(response.data || []);
+            setPagination((prev) => ({
+              ...prev,
+              page: Number(newPage),
+              totalItems: Number(response.totalItems) || 0,
+              totalPages:
+                Math.ceil(
+                  Number(response.totalItems) / Number(currentPageSize),
+                ) || 1,
+            }));
+          }
+        })
+        .catch((error) => {
+          console.error("Error loading payments:", error);
+          toast.error("Error loading payments");
+        });
+    },
+    [filters, pagination.pageSize],
+  );
+
+  const handlePageChange = (newPage) => {
+    loadData(newPage);
+  };
+
+  // Only reset to first page when filters change
+  const prevFiltersRef = useRef(filters);
 
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    // Only reset if filters actually changed
+    if (JSON.stringify(prevFiltersRef.current) !== JSON.stringify(filters)) {
+      prevFiltersRef.current = filters;
+      loadData(1);
+    }
+  }, [filters, loadData]);
+
+  // Initial load
+  useEffect(() => {
+    loadData(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setHasFilters(
@@ -115,14 +160,14 @@ const PaymentContainer = () => {
           <div className="my-5 flex flex-row-reverse items-center justify-between gap-5">
             <div className="flex gap-2">
               <button
-                className="size-10 rounded bg-green-600 p-2 text-right font-bold text-white hover:bg-green-700"
+                className="size-8 rounded bg-green-600 p-2 text-right font-bold text-white hover:bg-green-700"
                 onClick={() => setToggleForm(!toggleForm)}
                 title="Add New"
               >
                 <CreateIcon stroke={"#eee"} />
               </button>
               <button
-                className="size-10 rounded bg-slate-600 p-2 text-right font-bold text-white hover:bg-slate-700"
+                className="size-8 rounded bg-slate-600 p-2 text-right font-bold text-white hover:bg-slate-700"
                 onClick={() => setToggleFilters(true)}
                 title="Filters"
               >
@@ -131,7 +176,7 @@ const PaymentContainer = () => {
               <button
                 className={
                   hasFilters
-                    ? "size-10 rounded bg-slate-600 p-2 text-right font-bold text-white hover:bg-slate-700"
+                    ? "size-8 rounded bg-slate-600 p-2 text-right font-bold text-white hover:bg-slate-700"
                     : "hidden"
                 }
                 onClick={() => handleClearFilters()}
@@ -151,6 +196,9 @@ const PaymentContainer = () => {
               payments={storedPayments}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              pagination={pagination}
+              onPageChange={handlePageChange}
+              pageSize={pagination.pageSize}
             />
           )}
         </>
