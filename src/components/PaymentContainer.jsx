@@ -48,6 +48,7 @@ const PaymentContainer = () => {
   };
 
   const handleCancel = () => {
+    setPaymentData(null);
     setToggleForm(!toggleForm);
   };
 
@@ -145,7 +146,7 @@ const PaymentContainer = () => {
   return (
     <div className="container mx-auto my-10 max-w-fit">
       <h2 className="mb-10 text-center text-5xl font-bold uppercase">
-        {toggleForm ? " Payment Form" : "Payment Table"}
+        {toggleForm ? "Payment Form" : "Payment Table"}
       </h2>
       {toggleForm ? (
         <>
