@@ -144,8 +144,8 @@ const PaymentContainer = () => {
   }, [filters]);
 
   return (
-    <div className="container mx-auto my-10 max-w-fit">
-      <h2 className="mb-10 text-center text-5xl font-bold uppercase">
+    <div className="container mx-auto my-7 max-w-fit">
+      <h2 className="text-center text-2xl font-bold uppercase md:text-3xl lg:text-5xl">
         {toggleForm ? "Payment Form" : "Payment Table"}
       </h2>
       {toggleForm ? (
@@ -158,7 +158,7 @@ const PaymentContainer = () => {
         </>
       ) : (
         <>
-          <div className="my-5 flex flex-row-reverse items-center justify-between gap-5">
+          <div className="my-4 flex flex-row-reverse items-center justify-between gap-5">
             <div className="flex gap-2">
               <button
                 className="size-8 rounded bg-green-600 p-2 text-right font-bold text-white hover:bg-green-700"

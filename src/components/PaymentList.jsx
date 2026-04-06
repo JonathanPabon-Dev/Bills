@@ -59,7 +59,7 @@ const PaymentList = ({
   };
 
   const renderPagination = () => (
-    <div className="flex flex-col items-center space-y-3 px-2 py-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+    <div className="flex flex-col items-center space-y-3 p-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
       <div className="text-muted-foreground text-center text-sm sm:text-left">
         Showing {startItem} to {endItem} of {totalItems} entries
       </div>
@@ -70,7 +70,7 @@ const PaymentList = ({
           disabled={page <= 1}
           aria-label="First page"
         >
-          <ChevronDoubleLeftIcon className="h-4 w-4" />
+          <ChevronDoubleLeftIcon className="size-4" />
         </button>
         <button
           className="rounded border p-1 disabled:opacity-50"
@@ -78,7 +78,7 @@ const PaymentList = ({
           disabled={page <= 1}
           aria-label="Previous page"
         >
-          <ChevronLeftIcon className="h-4 w-4" />
+          <ChevronLeftIcon className="size-4" />
         </button>
         <span className="px-2 text-sm">
           Page {page} of {totalPages}
@@ -89,7 +89,7 @@ const PaymentList = ({
           disabled={page >= totalPages}
           aria-label="Next page"
         >
-          <ChevronRightIcon className="h-4 w-4" />
+          <ChevronRightIcon className="size-4" />
         </button>
         <button
           className="rounded border p-1 disabled:opacity-50"
@@ -97,7 +97,7 @@ const PaymentList = ({
           disabled={page >= totalPages}
           aria-label="Last page"
         >
-          <ChevronDoubleRightIcon className="h-4 w-4" />
+          <ChevronDoubleRightIcon className="size-4" />
         </button>
       </div>
     </div>
@@ -168,23 +168,23 @@ const PaymentList = ({
                     <div className="flex justify-center gap-2">
                       <button
                         onClick={() => onEdit(payment)}
-                        className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-500 text-white transition-colors hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+                        className="flex size-6 items-center justify-center rounded-md bg-blue-500 text-white transition-colors hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
                         aria-label="Edit payment"
                         type="button"
                       >
                         <EditIcon
-                          className="h-4 w-4 text-white"
+                          className="size-4 text-white"
                           stroke="currentColor"
                         />
                       </button>
                       <button
                         onClick={() => onDelete(payment.id)}
-                        className="flex h-6 w-6 items-center justify-center rounded-md bg-red-500 text-white transition-colors hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700"
+                        className="flex size-6 items-center justify-center rounded-md bg-red-500 text-white transition-colors hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700"
                         aria-label="Delete payment"
                         type="button"
                       >
                         <DeleteIcon
-                          className="h-4 w-4 text-white"
+                          className="size-4 text-white"
                           stroke="currentColor"
                         />
                       </button>

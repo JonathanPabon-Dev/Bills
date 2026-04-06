@@ -42,14 +42,14 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <form onSubmit={handleSubmit} className="my-4 flex flex-col gap-3">
         <label>
           Bill Name
           <select
             name="billName"
             value={payment.billName}
             onChange={handleChange}
-            className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
+            className="mt-1 w-full rounded-md bg-slate-600 p-2"
             required
           >
             <option value="">Select an option</option>
@@ -69,7 +69,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
               name="description"
               value={payment.description}
               onChange={handleChange}
-              className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
+              className="mt-1 w-full rounded-md bg-slate-600 p-2"
               required={payment.billName === "Otro"}
             />
           </label>
@@ -82,7 +82,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             name="paymentDeadline"
             value={payment.paymentDeadline}
             onChange={handleChange}
-            className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
+            className="mt-1 w-full rounded-md bg-slate-600 p-2"
             required
           />
         </label>
@@ -96,7 +96,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             min={0}
             value={payment.amount || ""}
             onChange={handleChange}
-            className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
+            className="mt-1 w-full rounded-md bg-slate-600 p-2"
             required
           />
         </label>
@@ -125,7 +125,7 @@ const PaymentForm = ({ paymentData, onSubmit, onCancel }) => {
             step={0.01}
             value={payment.totalPaid || ""}
             onChange={handleChange}
-            className="mt-1 w-full rounded-md bg-slate-600 px-2 py-2"
+            className="mt-1 w-full rounded-md bg-slate-600 p-2"
           />
         </label>
 

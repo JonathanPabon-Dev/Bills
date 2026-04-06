@@ -23,16 +23,19 @@ const Header = () => {
 
   return (
     <>
-      <header className="flex bg-slate-700 px-4 py-2 text-white">
+      <header className="flex bg-slate-800 px-4 py-2 text-white">
         <div className="container mx-auto flex items-center justify-between">
-          <div>Menu</div>
+          <div className="flex size-6 items-center gap-2">
+            <img src="bill.svg" />
+            <div className="text-xs font-bold uppercase">Bills</div>
+          </div>
           <div className="flex items-center gap-5">
-            <p className="font-semibold text-slate-100">
+            <p className="text-xs font-semibold uppercase text-slate-100">
               {session?.user?.email}
             </p>
             <button
               onClick={handleSignOut}
-              className="size-7 rounded border border-red-500 font-bold text-white hover:border-red-600 hover:bg-red-600"
+              className="size-7 rounded border border-red-500 font-bold text-red-500 hover:border-red-600 hover:bg-red-600 hover:text-white"
               title="Sign Out"
             >
               <FontAwesomeIcon icon={faSignOut} />
